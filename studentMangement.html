@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SMA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/sms.css">
+    <script src="jQuery/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+
+</head>
+
+<body>
+    <div data-role="page" data-theme="a">
+
+        <div data-role="header">
+            <a href="#left-panel" data-role="button" data-icon="home" data-iconpos="notext" data-theme="b"
+                data-iconshadow="false" data-inline="true">home</a>
+            <a href="#right-panel" data-role="button" data-icon="bars" data-iconpos="notext" data-theme="b"
+                data-iconshadow="false" data-inline="true">Bars</a>
+            <h1>SMA</h1>
+        </div>
+
+        <div role="main" class="ui-content">
+            <h1>
+                <p id="login">Login</p>
+            </h1>
+            <div id="username">
+                <label>
+                    <h3>Username</h3>
+                </label>
+                <input type="text" required autofocus>
+            </div>
+            <div id="pass">
+                <label>
+                    <h3>Password</h3>
+                </label>
+                <input type="text">
+            </div>
+            <div>
+                <a href="#" class="ui-btn" onclick="loginDB();">login</a>
+                <a href="#signPage" class="ui-btn">signup</a>
+            </div>
+        </div>
+
+
+    </div>
+    <div data-role="page" id="signPage">
+        <div data-role="header">
+            <h1>Register</h1>
+        </div>
+
+        <div role="main" class="ui-content">
+            <h1>
+                <p id="signup">SignUp !</p>
+            </h1>
+            <div id="username">
+                <label>
+                    <h3>Username</h3>
+                </label>
+                <input type="text" id="Uname">
+            </div>
+            <div id="username">
+                <label>
+                    <h3>Email</h3>
+                </label>
+                <input type="text" id="Email">
+            </div>
+            <div id="username">
+                <label>
+                    <h3>password</h3>
+                </label>
+                <input type="text" id="Pass">
+                <span id="password">
+
+                </span>
+            </div>
+            <div id="username">
+                <label>
+                    <h3>Re-password</h3>
+                </label>
+                <input type="text" id="Repass">
+                <span id="repassword">
+
+                </span>
+            </div>
+            <div>
+                <a href="#" class="ui-btn" onclick="addData();">submit</a>
+            </div>
+        </div>
+
+
+    </div>
+    <script>
+
+        if (window.openDatabase) {
+            var mydb = openDatabase("Student", "0.1", "Testing  Database", 2 * 1024 * 1024);
+            mydb.transaction(function (t) {
+                t.executeSql("CREATE TABLE IF NOT EXISTS studentsignup (Uname VARCHAR(30) PRIMARY KEY, Email VARCHAR(50), Pass VARCHAR(50))");
+            });
+
+        } else {
+            alert("WebSQL is not supported by your browser!");
+        }
+        function addData() {
+            if (mydb) {
+                var Uname = document.getElementById("Uname").value;
+                var Email = document.getElementById("Email").value;
+                var Pass = document.getElementById("Pass").value;
+                var Repass = document.getElementById("Repass").value;
+
+                if (Uname !== "" && Email !== "" && Pass !== "") {
+
+                    mydb.transaction(function (t) {
+                        t.executeSql("INSERT INTO studentsignup  (Uname, Email, Pass) VALUES (?, ?, ?)", [Uname, Email, Pass]);
+                        // outputDrafts();
+                    });
+                }
+
+                if (Pass = "") {
+                    document.getElementById('password').innerHTML = "**error"
+                    return false;
+                }
+                if (Pass !== Repass) {
+                    document.getElementById('repassword').innerHTML = "**password does't match";
+                    return false;
+                }
+                else {
+                    alert("please filled all the entries!");
+                }
+            }
+            else {
+                alert("db not found, your browser does not support web sql!");
+            }
+
+        }
+        // function check() {
+        //     alert("hello");
+        //     if (mydb) {
+        //         var Username = document.getElementById("username").value;
+        //         var Password = document.getElementById("password").value;
+        //         if (Username !== "" &&  Password !== "") {
+
+        //             mydb.transaction(function (t) {
+        //                 t.executeSql(" SELECT * FROM studentsignup WHERE Uname = ? AND Pass = ?",[Uname, Pass]);
+                        
+        //             });
+        //         }else{
+        //             alert("welcome");
+        //         }
+        //     }
+
+        // } 
+        function loginDB(tx)
+        {
+            alert("yep yep yep");
+         var Uname = document.getElementById("username").value;
+         var Pass = document.getElementById("password").value;
+         tx.executeSql("SELECT * FROM studentsignup WHERE Uname='" + Uname + "' AND Pass= '" + Pass + "'",[], LoginSuccess);
+       
+         } 
+         function LoginSuccess(tx, results) {
+           if (results.rows.length > 0) {
+           alert ("User and Pass Found");
+           }
+           else
+           {
+           alert ("User and Pass incorrect");
+           }
+
+        }
+    </script>
+</body>
+
+</html>
