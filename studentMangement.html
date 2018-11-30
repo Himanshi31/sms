@@ -9,13 +9,10 @@
     <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-
-
 </head>
 
 <body>
-    <div data-role="page" data-theme="a">
-
+    <div data-role="page" data-theme="a" id="signin">
         <div data-role="header">
             <a href="#left-panel" data-role="button" data-icon="home" data-iconpos="notext" data-theme="b"
                 data-iconshadow="false" data-inline="true">home</a>
@@ -24,52 +21,65 @@
             <h1>SMA</h1>
         </div>
 
-        <div role="main" class="ui-content">
+        <!--------------------------------------------------------------------------------------------------------------->
+
+        <div role="main" class="ui-content"><!-- User login page-->
             <h1>
                 <p id="login">Login</p>
             </h1>
-            <div id="username">
+
+            <h4>
+                <img src="user image.png" width="25px" height="20px" alt="Failed" />
+            </h4>
+
+            <div>
                 <label>
                     <h3>Username</h3>
                 </label>
-                <input type="text" required autofocus>
+                <input type="text" required autofocus id="Username">
             </div>
-            <div id="pass">
+            <div>
                 <label>
                     <h3>Password</h3>
                 </label>
-                <input type="text">
+                <input type="text" id="Password">
             </div>
             <div>
                 <a href="#" class="ui-btn" onclick="loginDB();">login</a>
                 <a href="#signPage" class="ui-btn">signup</a>
             </div>
         </div>
-
-
     </div>
-    <div data-role="page" id="signPage">
+
+    <!--------------------------------------------------------------------------------------------------------------->
+
+    <div data-role="page" id="signPage"><!-- User Signup page-->
         <div data-role="header">
+            <a href="#signin" data-role="button" data-icon="back" data-iconpos="notext" data-theme="b" data-iconshadow="false"
+                data-inline="true">back</a>
             <h1>Register</h1>
         </div>
 
         <div role="main" class="ui-content">
+
             <h1>
                 <p id="signup">SignUp !</p>
             </h1>
+
+
             <div id="username">
                 <label>
                     <h3>Username</h3>
                 </label>
                 <input type="text" id="Uname">
             </div>
-            <div id="username">
+            <div>
                 <label>
                     <h3>Email</h3>
                 </label>
                 <input type="text" id="Email">
             </div>
-            <div id="username">
+            <div>
                 <label>
                     <h3>password</h3>
                 </label>
@@ -78,7 +88,7 @@
 
                 </span>
             </div>
-            <div id="username">
+            <div>
                 <label>
                     <h3>Re-password</h3>
                 </label>
@@ -91,88 +101,304 @@
                 <a href="#" class="ui-btn" onclick="addData();">submit</a>
             </div>
         </div>
-
-
     </div>
-    <script>
 
-        if (window.openDatabase) {
-            var mydb = openDatabase("Student", "0.1", "Testing  Database", 2 * 1024 * 1024);
-            mydb.transaction(function (t) {
-                t.executeSql("CREATE TABLE IF NOT EXISTS studentsignup (Uname VARCHAR(30) PRIMARY KEY, Email VARCHAR(50), Pass VARCHAR(50))");
-            });
+<!--------------------------------------------------------------------------------------------------------------->
 
-        } else {
-            alert("WebSQL is not supported by your browser!");
-        }
-        function addData() {
-            if (mydb) {
-                var Uname = document.getElementById("Uname").value;
-                var Email = document.getElementById("Email").value;
-                var Pass = document.getElementById("Pass").value;
-                var Repass = document.getElementById("Repass").value;
+    <div data-role="page" id="addStudent"><!-- Student add page-->
+        <div data-role="header">
+            <a href="#studentlist" data-role="button" data-icon="back" data-iconpos="notext" data-theme="b"
+                data-iconshadow="false" data-inline="true">back</a>
+            <h1>Add Student</h1>
+        </div>
 
-                if (Uname !== "" && Email !== "" && Pass !== "") {
+        <div role="main" class="ui-content">
+            <h1>
+                <p id="signup">student !</p>
+            </h1>
+            <div id="username">
+                <label>
+                    <h3>Name</h3>
+                </label>
+                <input type="text" id="name">
+            </div>
+            <div>
+                <label>
+                    <h3>Age</h3>
+                </label>
+                <input type="date" id="age" value="">
+            </div>
+            <div>
+                <label>
+                    <h3>Class</h3>
+                </label>
+                <input type="text" id="class">
 
+            </div>
+            <div>
+                <label>
+                    <h3>Contact</h3>
+                </label>
+                <input type="text" id="contact" pattern="[0-9]*">
+
+            </div>
+            <div>
+                <a href="#" onclick=" addStuData();" class="ui-btn">submit</a>
+            </div>
+        </div>
+    </div>
+<!--------------------------------------------------------------------------------------------------------------->
+    <div data-role="page" data-theme="a" id="classes"><!-- Student list page-->
+        <div data-role="header">
+            <a href="#studentlist" data-role="button" data-icon="back" data-iconpos="notext" data-theme="b"
+                data-iconshadow="false" data-inline="true">back</a>
+            <h1>Class List</h1>
+        </div>
+
+        <!-- <div data-role="main" class="ui-content">
+                <ul data-role="listview" data-inset="true" id="Mainlist">
+                 </ul> 
+        </div> -->
+    </div>
+    
+<!--------------------------------------------------------------------------------------------------------------->
+    <div data-role="page" data-theme="a" id="studentlist"><!-- Action page-->
+        <div data-role="header">
+            <a href="#signin" data-role="button" data-icon="back" data-iconpos="notext" data-theme="b" data-iconshadow="false"
+                data-inline="true">back</a>
+            <h1>Teacher Home</h1>
+        </div>
+        <div role="main" class="ui-content">
+            <div>
+                <ul id="time" data-role="listview" data-inset="true" data-corners="false" data-icon="false" class="ui-nodisc-icon ui-alt-icon">
+                    <li data-theme="a" class="ui-btn ui-btn-icon-left "><a href="#addStudent"><img src="user image.png"
+                                class="ui-li-icon ui-corner-none">Add
+                            Student</a>
+                    </li>
+                </ul>
+
+            </div>
+            <div>
+                <ul id="time" data-role="listview" data-inset="true" data-corners="false" data-icon="false" class="ui-nodisc-icon ui-alt-icon">
+                    <li data-theme="a" class="ui-btn ui-btn-icon-left "><a href="#" onclick="loadRecords();"><img src="list.png"
+                                class="ui-li-icon ui-corner-none">Classes</a>
+                    </li>
+                    <li data-theme="a" class="ui-btn ui-btn-icon-left "><a href="#" onclick="fetchstudentList();"><img src="list.png"
+                        class="ui-li-icon ui-corner-none">Names</a>
+                    </li>
+                   
+                </ul>
+                <ul data-role="listview" id="Mainlist" data-inset="true" class="ui-btn-inset">
+                    <!-- <li id="listofStudent" ><a  id="liststu" data-key="anu" ><h3>anu</h3></a></li> -->
+                         
+                    </ul>
+                <ul data-role="listview" id="listofclass" data-inset="true" class="ui-btn-inset">
+                    <!-- <li ><a  id="" data-key="1" ><h3>1</h3></a></li>
+                        <li ><a  id="" data-key="1" ><h3>1</h3></a></li> -->
+                        <!-- <a data-role="button" id="add_element">Add Fields</a> -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+<!--------------------------------------------------------------------------------------------------------------->
+    <div data-role="page" data-theme="a" id="teacherHome"><!-- Teacher Home page-->
+        <div data-role="header">
+            <a href="#signin" data-role="button" data-icon="back" data-iconpos="notext" data-theme="b" data-iconshadow="false"
+                data-inline="true">back</a>
+            <h1>Teacher Home</h1>
+        </div>
+        <div role="main" class="ui-content">
+            <h2> Welcome <span id="username_new"></span></h2>
+            <div data-role="main" class="ui-content">
+                <div>
+                    <ul id="time" data-role="listview" data-inset="true" data-corners="false" class="ui-nodisc-icon ui-alt-icon">
+                        <li data-theme="a"><a href="#studentlist"><img src="user image.png" class="ui-li-icon ui-corner-none">Sudent
+                                List</a>
+                        </li>
+                        <li data-theme="a" style="border:none;"><a href="#studentlist"><img src="timetable.png" class="ui-li-icon ui-corner-none">Time
+                                Table</a>
+                        </li>
+                        <li data-theme="a" style="border:none;"><a href="#studentlist"><img src="teacher.png" class="ui-li-icon ui-corner-none">Todays
+                                Classes</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <!--------------------------------------------------------------------------------------------------------------->
+            <script>
+
+            if (window.openDatabase) {
+                var mydb = openDatabase("Teacher", "0.1", "Testing  Database", 2 * 1024 * 1024);
+                var mydbs = openDatabase("Student", "0.1", "Testing  Database", 2 * 1024 * 1024);
+                mydb.transaction(function (t) {
+                    t.executeSql("CREATE TABLE IF NOT EXISTS studentsignup (Uname VARCHAR(30) PRIMARY KEY, Email VARCHAR(50), Pass VARCHAR(50))");
+                });
+                mydbs.transaction(function (tx) {
+                    tx.executeSql("CREATE TABLE IF NOT EXISTS studentDetails (Sname VARCHAR(30) , Sage VARCHAR(20), Sclass VARCHAR(10),Scontact VARCHAR(15))");
+                });
+            } else {
+                alert("WebSQL is not supported by your browser!");
+            }
+           
+            function addData() {
+                if (mydb) {
+                    var Uname = document.getElementById("Uname").value;
+                    var Email = document.getElementById("Email").value;
+                    var Pass = document.getElementById("Pass").value;
+                    var Repass = document.getElementById("Repass").value;
+
+                    if (Uname !== "" && Email !== "" && Pass !== "") {
+
+                        mydb.transaction(function (t) {
+                            t.executeSql("INSERT INTO studentsignup  (Uname, Email, Pass) VALUES (?, ?, ?)", [Uname, Email, Pass]);
+                        
+                        });
+                    }
+                    // if (Pass = "") {
+                    //     document.getElementById('password').innerHTML = "**error"
+                    //     return false;
+                    // }
+                    // if (Pass !== Repass) {
+                    //     document.getElementById('repassword').innerHTML = "**password does't match";
+                    //     return false;
+                    // }
+                    else {
+                        alert("please filled all the entries!");
+                    }
+                }
+                else {
+                    alert("db not found, your browser does not support web sql!");
+                }
+            }
+            function addStuData() {
+                alert("hi student");
+                if (mydbs) {
+                    var Sname = document.getElementById("name").value;
+                    var Sage = document.getElementById("age").value;
+                    var Sclass = document.getElementById("class").value;
+                    var Scontact = document.getElementById("contact").value;
+
+                    if (Sname !== "" && Sage !== "" && Sclass !== "" && Scontact !== "") {
+                        mydbs.transaction(function (t) {
+                            t.executeSql("INSERT INTO studentDetails  (Sname, Sage, Sclass,Scontact) VALUES (?, ?, ?,?)", [Sname, Sage, Sclass, Scontact]);
+
+                        });
+                    }
+                    else {
+                        alert("please filled all the entries!");
+                    }
+                }
+                else {
+                    alert("db not found, your browser does not support web sql!");
+                }
+
+            }
+
+            function loginDB(tx) {
+                //  alert("yep yep yep");
+                if (mydb) {
+                    var Uname = document.getElementById("Username").value;
+                    console.log(Uname);
+                    var Pass = document.getElementById("Password").value;
+                    console.log(Pass);
+                }
+                mydb.transaction(function (t) {
+                    t.executeSql("SELECT * FROM studentsignup WHERE Uname='" + Uname + "' AND Pass= '" + Pass + "'", [], LoginSuccess);
+                })
+
+
+            }
+            function LoginSuccess(tx, results) {
+                if (results.rows.length > 0) {
+                    alert("User and Pass Found");
+                    var Uname = document.getElementById("Username").value;
                     mydb.transaction(function (t) {
-                        t.executeSql("INSERT INTO studentsignup  (Uname, Email, Pass) VALUES (?, ?, ?)", [Uname, Email, Pass]);
-                        // outputDrafts();
+                        t.executeSql("SELECT * FROM studentsignup WHERE Uname='" + Uname + "'", [], fetchResults);
+                        console.log(Uname);
+                    })
+                    window.location.href = 'studentMangement.html#teacherHome';
+                }
+                else {
+                    alert("User and Pass incorrect");
+                }
+            }
+            function fetchResults(tx, results) {
+                var uname = results.rows[0].Uname;
+                //console.log(uname);
+                $('#username_new').html(uname);
+            }
+
+            function loadRecords(Sclass) {
+                console.log('Loading events records from database into listview...');
+                if (mydbs) {
+                    mydbs.transaction(function (txs) {
+                        txs.executeSql("SELECT Sclass FROM studentDetails", [], function (txs, results) {
+                            console.log('hello');
+                            var len = results.rows.length, i;
+                            for (i = 0; i < len; i++) {
+                                var listRecord = results.rows.item(i);
+                                console.log(results);
+                                var classlist = '';
+                                classlist = '<li id="listclasses" ><a  id="listitem" data-key="' + listRecord.Sclass + '" >';
+                                classlist += '<h3>' + listRecord.Sclass + '</h3>';
+                                classlist += '</a></li>';
+                                console.log(classlist);
+                                $('#listofclass').append(classlist);
+                            }
+                            $('#listofclass').listview('refresh');
+                        });
                     });
                 }
 
-                if (Pass = "") {
-                    document.getElementById('password').innerHTML = "**error"
-                    return false;
-                }
-                if (Pass !== Repass) {
-                    document.getElementById('repassword').innerHTML = "**password does't match";
-                    return false;
-                }
-                else {
-                    alert("please filled all the entries!");
-                }
+ 
             }
-            else {
-                alert("db not found, your browser does not support web sql!");
+            function fetchstudentList(Sname) {
+                console.log('names list');
+                if (mydbs) {
+                    mydbs.transaction(function (txs) {
+                        txs.executeSql("SELECT Sname FROM studentDetails WHERE Sclass='1'", [], function (txs, results) {
+                            console.log('hello');
+                            var len = results.rows.length, i;
+                            for (i = 0; i < len; i++) {
+                                var NamelistRecord = results.rows.item(i);
+                                console.log(results);
+                                var studname = '';
+                                studname = '<li id="listofStudent" ><a  id="liststu" data-key="' + NamelistRecord.Sname + '" >';
+                                studname += '<h3>' + NamelistRecord.Sname + '</h3>';
+                                studname += '</a></li>';
+                                console.log(studname);
+                                $('#Mainlist').append( studname);
+                            }
+                            $('#Mainlist').listview('refresh');
+                        });
+                    });
+                }
+
+
             }
-
-        }
-        // function check() {
-        //     alert("hello");
-        //     if (mydb) {
-        //         var Username = document.getElementById("username").value;
-        //         var Password = document.getElementById("password").value;
-        //         if (Username !== "" &&  Password !== "") {
-
-        //             mydb.transaction(function (t) {
-        //                 t.executeSql(" SELECT * FROM studentsignup WHERE Uname = ? AND Pass = ?",[Uname, Pass]);
-                        
-        //             });
-        //         }else{
-        //             alert("welcome");
-        //         }
-        //     }
-
-        // } 
-        function loginDB(tx)
-        {
-            alert("yep yep yep");
-         var Uname = document.getElementById("username").value;
-         var Pass = document.getElementById("password").value;
-         tx.executeSql("SELECT * FROM studentsignup WHERE Uname='" + Uname + "' AND Pass= '" + Pass + "'",[], LoginSuccess);
+ 
+// $('#listvalue ').on('click', function () {
+//      console.log('smvcd')
        
-         } 
-         function LoginSuccess(tx, results) {
-           if (results.rows.length > 0) {
-           alert ("User and Pass Found");
-           }
-           else
-           {
-           alert ("User and Pass incorrect");
-           }
 
-        }
-    </script>
+//     })
+// $('#listvalue').click(function() {
+//     console.log('hello list')
+//     var list   = $('ul[data-role="listview"]');
+//     var nextLi = ((list.children().length) + 1);
+//     alert('Next: '+nextLi);
+//     li = '<li><div data-role="fieldcontain"><label for="textarea'+nextLi+'">Input:</label><textarea id="textarea'+nextLi+'" name="textarea'+nextLi+'"></textarea></div></li>';
+//     list.append(li);
+//     list.listview('refresh');
+    
+//     $('#classes').trigger('create');
+// });
+
+        </script>
 </body>
 
 </html>
