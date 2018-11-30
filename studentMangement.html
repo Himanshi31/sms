@@ -109,7 +109,7 @@
         <div data-role="header">
             <a href="#studentlist" data-role="button" data-icon="back" data-iconpos="notext" data-theme="b"
                 data-iconshadow="false" data-inline="true">back</a>
-            <h1>Add Student</h1>
+            <h1>Studeny Form</h1>
         </div>
 
         <div role="main" class="ui-content">
@@ -245,6 +245,7 @@
             }
            
             function addData() {
+             console.log("user")
                 if (mydb) {
                     var Uname = document.getElementById("Uname").value;
                     var Email = document.getElementById("Email").value;
@@ -257,7 +258,9 @@
                             t.executeSql("INSERT INTO studentsignup  (Uname, Email, Pass) VALUES (?, ?, ?)", [Uname, Email, Pass]);
                         
                         });
+                        alert(`welcome : ${Uname} in the Studentmanagement application  `);
                     }
+                    
                     // if (Pass = "") {
                     //     document.getElementById('password').innerHTML = "**error"
                     //     return false;
@@ -274,6 +277,7 @@
                     alert("db not found, your browser does not support web sql!");
                 }
             }
+            
             function addStuData() {
                 alert("hi student");
                 if (mydbs) {
@@ -314,7 +318,7 @@
             }
             function LoginSuccess(tx, results) {
                 if (results.rows.length > 0) {
-                    alert("User and Pass Found");
+                   
                     var Uname = document.getElementById("Username").value;
                     mydb.transaction(function (t) {
                         t.executeSql("SELECT * FROM studentsignup WHERE Uname='" + Uname + "'", [], fetchResults);
