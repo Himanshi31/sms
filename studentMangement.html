@@ -135,12 +135,12 @@
                 <label>
                     <h3>Class</h3>
                 </label>
-                <select name="select-native-1" id="class">
-                    <option value="1">The 1st Option</option>
-                    <option value="2">The 2nd Option</option>
-                    <option value="3">The 3rd Option</option>
-                    <option value="4">The 4th Option</option>
-                </select>
+                <select name="select-native-2" id="Class" data-mini="true">
+                        <option value="L.K.G">L.K.G</option>
+                        <option value="U.K.G">U.K.G</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                    </select>
 
             </div>
             <div>
@@ -292,12 +292,15 @@
                 if (mydbs) {
                     var Sname = document.getElementById("name").value;
                     var Sage = document.getElementById("age").value;
-                    var Sclass = document.getElementById("class").value;
-                    var Scontact = document.getElementById("contact").value;
+                    var Sclass = document.getElementById("Class").value;
+                    console.log(Sclass);
+
+               
+    var Scontact = document.getElementById("contact").value;
 
                     if (Sname !== "" && Sage !== "" && Sclass !== "" && Scontact !== "") {
                         mydbs.transaction(function (t) {
-                            t.executeSql("INSERT INTO studentDetails  (Sname, Sage, Sclass,Scontact) VALUES (?, ?, ?,?)", [Sname, Sage, Sclass, Scontact]);
+                            t.executeSql("INSERT INTO studentDetails  (Sname, Sage, Sclass,Scontact) VALUES (?, ?, ?,?)", [Sname, Sage,Sclass, Scontact]);
 
                         });
                     }
@@ -349,7 +352,7 @@
                 console.log('Loading events records from database into listview...');
                 if (mydbs) {
                     mydbs.transaction(function (txs) {
-                        txs.executeSql("SELECT  Sclass FROM studentDetails ORDER BY Sclass", [], function (txs, results) {
+                        txs.executeSql("SELECT DISTINCT Sclass FROM studentDetails ORDER BY Sclass", [], function (txs, results) {
                             console.log('hello');
                             var len = results.rows.length, i;
                             for (i = 0; i < len; i++) {
@@ -365,7 +368,7 @@
                             $('#listofclass').listview('refresh');
                         });
                     });
-                    var x = document.getElementsByTagName("#listofclass")
+                    var x = document.getElementsByTagName("#listclasses")
                     console.log(x[1]);
                     var i;
                     for (i = 0; i < x.length; i++) {
