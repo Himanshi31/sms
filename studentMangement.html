@@ -23,7 +23,8 @@
 
         <!--------------------------------------------------------------------------------------------------------------->
 
-        <div role="main" class="ui-content"><!-- User login page-->
+        <div role="main" class="ui-content">
+            <!-- User login page-->
             <h1>
                 <p id="login">Login</p>
             </h1>
@@ -53,7 +54,8 @@
 
     <!--------------------------------------------------------------------------------------------------------------->
 
-    <div data-role="page" id="signPage"><!-- User Signup page-->
+    <div data-role="page" id="signPage">
+        <!-- User Signup page-->
         <div data-role="header">
             <a href="#signin" data-role="button" data-icon="back" data-iconpos="notext" data-theme="b" data-iconshadow="false"
                 data-inline="true">back</a>
@@ -103,9 +105,10 @@
         </div>
     </div>
 
-<!--------------------------------------------------------------------------------------------------------------->
+    <!--------------------------------------------------------------------------------------------------------------->
 
-    <div data-role="page" id="addStudent"><!-- Student add page-->
+    <div data-role="page" id="addStudent">
+        <!-- Student add page-->
         <div data-role="header">
             <a href="#studentlist" data-role="button" data-icon="back" data-iconpos="notext" data-theme="b"
                 data-iconshadow="false" data-inline="true">back</a>
@@ -132,7 +135,12 @@
                 <label>
                     <h3>Class</h3>
                 </label>
-                <input type="text" id="class">
+                <select name="select-native-1" id="class">
+                    <option value="1">The 1st Option</option>
+                    <option value="2">The 2nd Option</option>
+                    <option value="3">The 3rd Option</option>
+                    <option value="4">The 4th Option</option>
+                </select>
 
             </div>
             <div>
@@ -147,8 +155,9 @@
             </div>
         </div>
     </div>
-<!--------------------------------------------------------------------------------------------------------------->
-    <div data-role="page" data-theme="a" id="classes"><!-- Student list page-->
+    <!--------------------------------------------------------------------------------------------------------------->
+    <div data-role="page" data-theme="a" id="classes">
+        <!-- Student list page-->
         <div data-role="header">
             <a href="#studentlist" data-role="button" data-icon="back" data-iconpos="notext" data-theme="b"
                 data-iconshadow="false" data-inline="true">back</a>
@@ -160,9 +169,10 @@
                  </ul> 
         </div> -->
     </div>
-    
-<!--------------------------------------------------------------------------------------------------------------->
-    <div data-role="page" data-theme="a" id="studentlist"><!-- Action page-->
+
+    <!--------------------------------------------------------------------------------------------------------------->
+    <div data-role="page" data-theme="a" id="studentlist">
+        <!-- Action page-->
         <div data-role="header">
             <a href="#signin" data-role="button" data-icon="back" data-iconpos="notext" data-theme="b" data-iconshadow="false"
                 data-inline="true">back</a>
@@ -183,26 +193,25 @@
                     <li data-theme="a" class="ui-btn ui-btn-icon-left "><a href="#" onclick="loadRecords();"><img src="list.png"
                                 class="ui-li-icon ui-corner-none">Classes</a>
                     </li>
-                    <li data-theme="a" class="ui-btn ui-btn-icon-left "><a href="#" onclick="fetchstudentList();"><img src="list.png"
-                        class="ui-li-icon ui-corner-none">Names</a>
+                    <li data-theme="a" class="ui-btn ui-btn-icon-left "><a href="#" onclick="fetchstudentList();"><img
+                                src="list.png" class="ui-li-icon ui-corner-none">Names</a>
                     </li>
-                   
+
                 </ul>
                 <ul data-role="listview" id="Mainlist" data-inset="true" class="ui-btn-inset">
                     <!-- <li id="listofStudent" ><a  id="liststu" data-key="anu" ><h3>anu</h3></a></li> -->
-                         
-                    </ul>
+
+                </ul>
                 <ul data-role="listview" id="listofclass" data-inset="true" class="ui-btn-inset">
-                    <!-- <li ><a  id="" data-key="1" ><h3>1</h3></a></li>
-                        <li ><a  id="" data-key="1" ><h3>1</h3></a></li> -->
-                        <!-- <a data-role="button" id="add_element">Add Fields</a> -->
+
                 </ul>
             </div>
         </div>
     </div>
 
-<!--------------------------------------------------------------------------------------------------------------->
-    <div data-role="page" data-theme="a" id="teacherHome"><!-- Teacher Home page-->
+    <!--------------------------------------------------------------------------------------------------------------->
+    <div data-role="page" data-theme="a" id="teacherHome">
+        <!-- Teacher Home page-->
         <div data-role="header">
             <a href="#signin" data-role="button" data-icon="back" data-iconpos="notext" data-theme="b" data-iconshadow="false"
                 data-inline="true">back</a>
@@ -229,7 +238,7 @@
         </div>
 
         <!--------------------------------------------------------------------------------------------------------------->
-            <script>
+        <script>
 
             if (window.openDatabase) {
                 var mydb = openDatabase("Teacher", "0.1", "Testing  Database", 2 * 1024 * 1024);
@@ -243,9 +252,9 @@
             } else {
                 alert("WebSQL is not supported by your browser!");
             }
-           
+
             function addData() {
-             console.log("user")
+                console.log("user")
                 if (mydb) {
                     var Uname = document.getElementById("Uname").value;
                     var Email = document.getElementById("Email").value;
@@ -256,11 +265,11 @@
 
                         mydb.transaction(function (t) {
                             t.executeSql("INSERT INTO studentsignup  (Uname, Email, Pass) VALUES (?, ?, ?)", [Uname, Email, Pass]);
-                        
+
                         });
                         alert(`welcome : ${Uname} in the Studentmanagement application  `);
                     }
-                    
+
                     // if (Pass = "") {
                     //     document.getElementById('password').innerHTML = "**error"
                     //     return false;
@@ -277,7 +286,7 @@
                     alert("db not found, your browser does not support web sql!");
                 }
             }
-            
+
             function addStuData() {
                 alert("hi student");
                 if (mydbs) {
@@ -318,7 +327,7 @@
             }
             function LoginSuccess(tx, results) {
                 if (results.rows.length > 0) {
-                   
+
                     var Uname = document.getElementById("Username").value;
                     mydb.transaction(function (t) {
                         t.executeSql("SELECT * FROM studentsignup WHERE Uname='" + Uname + "'", [], fetchResults);
@@ -340,14 +349,14 @@
                 console.log('Loading events records from database into listview...');
                 if (mydbs) {
                     mydbs.transaction(function (txs) {
-                        txs.executeSql("SELECT Sclass FROM studentDetails", [], function (txs, results) {
+                        txs.executeSql("SELECT  Sclass FROM studentDetails ORDER BY Sclass", [], function (txs, results) {
                             console.log('hello');
                             var len = results.rows.length, i;
                             for (i = 0; i < len; i++) {
                                 var listRecord = results.rows.item(i);
                                 console.log(results);
                                 var classlist = '';
-                                classlist = '<li id="listclasses" ><a  id="listitem" data-key="' + listRecord.Sclass + '" >';
+                                classlist = '<li id="" ><a  id="listitem" data-key="' + listRecord.Sclass + '" >';
                                 classlist += '<h3>' + listRecord.Sclass + '</h3>';
                                 classlist += '</a></li>';
                                 console.log(classlist);
@@ -356,40 +365,49 @@
                             $('#listofclass').listview('refresh');
                         });
                     });
-                }
+                    var x = document.getElementsByTagName("#listofclass")
+                    console.log(x[1]);
+                    var i;
+                    for (i = 0; i < x.length; i++) {
+                        x[i].style.Color = "red";
+                        console.log("hello2");
+                    }
+                    $('#listclasses ').on('click', function () {
+                        console.log('smvcd')
 
- 
-            }
-            function fetchstudentList(Sname) {
-                console.log('names list');
-                if (mydbs) {
-                    mydbs.transaction(function (txs) {
-                        txs.executeSql("SELECT Sname FROM studentDetails WHERE Sclass='1'", [], function (txs, results) {
-                            console.log('hello');
-                            var len = results.rows.length, i;
-                            for (i = 0; i < len; i++) {
-                                var NamelistRecord = results.rows.item(i);
-                                console.log(results);
-                                var studname = '';
-                                studname = '<li id="listofStudent" ><a  id="liststu" data-key="' + NamelistRecord.Sname + '" >';
-                                studname += '<h3>' + NamelistRecord.Sname + '</h3>';
-                                studname += '</a></li>';
-                                console.log(studname);
-                                $('#Mainlist').append( studname);
-                            }
-                            $('#Mainlist').listview('refresh');
-                        });
-                    });
+
+                    })
+
                 }
 
 
             }
- 
-// $('#listvalue ').on('click', function () {
-//      console.log('smvcd')
-       
 
-//     })
+            // function fetchstudentList(Sname) {
+            //     console.log('names list');
+            //     if (mydbs) {
+            //         mydbs.transaction(function (txs) {
+            //             txs.executeSql("SELECT Sname FROM studentDetails WHERE Sclass='1'", [], function (txs, results) {
+            //                 console.log('hello');
+            //                 var len = results.rows.length, i;
+            //                 for (i = 0; i < len; i++) {
+            //                     var NamelistRecord = results.rows.item(i);
+            //                     console.log(results);
+            //                     var studname = '';
+            //                     studname = '<li id="listofStudent" ><a  id="liststu" data-key="' + NamelistRecord.Sname + '" >';
+            //                     studname += '<h3>' + NamelistRecord.Sname + '</h3>';
+            //                     studname += '</a></li>';
+            //                     console.log(studname);
+            //                     $('#Mainlist').append( studname);
+            //                 }
+            //                 $('#Mainlist').listview('refresh');
+            //             });
+            //         });
+            //     }
+
+
+            // }
+
 // $('#listvalue').click(function() {
 //     console.log('hello list')
 //     var list   = $('ul[data-role="listview"]');
@@ -398,7 +416,7 @@
 //     li = '<li><div data-role="fieldcontain"><label for="textarea'+nextLi+'">Input:</label><textarea id="textarea'+nextLi+'" name="textarea'+nextLi+'"></textarea></div></li>';
 //     list.append(li);
 //     list.listview('refresh');
-    
+
 //     $('#classes').trigger('create');
 // });
 
