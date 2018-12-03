@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="jQuery/jquery.session.js"></script>
+
 </head>
 
 <body>
@@ -175,8 +177,8 @@
     <div data-role="page" data-theme="a" id="studentlist">
         <!-- Action page-->
         <div data-role="header">
-            <a href="#signin" data-role="button" data-icon="back" data-iconpos="notext" data-theme="b" data-iconshadow="false"
-                data-inline="true">back</a>
+            <a href="#teacherHome" data-role="button" data-icon="back" data-iconpos="notext" data-theme="b"
+                data-iconshadow="false" data-inline="true">back</a>
             <h1>Teacher Home</h1>
         </div>
         <div role="main" class="ui-content">
@@ -259,6 +261,7 @@
 
             function addData() {
                 console.log("user")
+
                 if (mydb) {
                     var Uname = document.getElementById("Uname").value;
                     var Email = document.getElementById("Email").value;
@@ -293,6 +296,7 @@
 
             function addStuData() {
                 alert("hi student");
+                window.location.reload(true);
                 if (mydbs) {
                     var Sname = document.getElementById("name").value;
                     var Sage = document.getElementById("age").value;
@@ -318,7 +322,7 @@
 
             }
 
-            function loginDB(tx) {
+            function loginDB() {
                 //  alert("yep yep yep");
                 if (mydb) {
                     var Uname = document.getElementById("Username").value;
@@ -351,9 +355,20 @@
                 //console.log(uname);
                 $('#username_new').html(uname);
 
+                $.session.set("UserName", uname);
+                $('#current_session').val(uname);
+
+                window.location.href = 'studentMangement.html#teacherHome';
+
+
             }
 
-            function loadRecords(Sclass) {
+            $(function () {
+                var current_user = $.session.get("UserName");
+                $('#username_new').html(current_user);
+            });
+
+            function loadRecords() {
                 console.log('Loading events records from database into listview...');
 
                 if (mydbs) {
@@ -366,7 +381,7 @@
                                 var listRecord = results.rows.item(i);
                                 console.log(results);
                                 var classlist = '';
-                                classlist = '<li id="listofClass"><a  id="listitem"  onclick="fetchstudentList();" data-key="' + listRecord.Sclass + '" >';
+                                classlist = '<li id="listofClass"><a  id="listitem"  onclick="fetchstudentList(event);" data-key="' + listRecord.Sclass + '" >';
                                 classlist += '<h3>' + listRecord.Sclass + '</h3>';
                                 classlist += '</a></li>';
                                 console.log(classlist);
@@ -383,15 +398,17 @@
             }
 
 
-            function fetchstudentList(Sname) {
-
-                console.log('names list');
+            function fetchstudentList(event) {
+               var selectedId = $(event.currentTarget).attr('data-key');
                 window.location.href = 'studentMangement.html#list';
 
                 if (mydbs) {
                     mydbs.transaction(function (txs) {
-                        txs.executeSql("SELECT Sname FROM studentDetails WHERE Sclass='1'", [], function (txs, results) {
-                            console.log('hello');
+                        var ttt = "SELECT Sname FROM studentDetails WHERE Sclass="+selectedId;
+                        console.log('ttt', ttt);
+                        txs.executeSql(ttt, [], function (txs, results) {
+                            console.log('hello', results);
+                            $("#listofStudent").empty();
                             var len = results.rows.length, i;
                             for (i = 0; i < len; i++) {
                                 var NamelistRecord = results.rows.item(i);
@@ -401,12 +418,15 @@
                                 studname += '<h3>' + NamelistRecord.Sname + '</h3>';
                                 studname += '</a></li>';
                                 console.log(studname);
+                                
                                 $('#listofStudent').append(studname);
                             }
                             $('#listofStudent').listview('refresh');
+                           
                         });
                     });
-               }
+                }
+
             }
         </script>
 </body>
