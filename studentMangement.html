@@ -136,11 +136,11 @@
                     <h3>Class</h3>
                 </label>
                 <select name="select-native-2" id="Class" data-mini="true">
-                        <option value="L.K.G">L.K.G</option>
-                        <option value="U.K.G">U.K.G</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                    </select>
+                    <option value="L.K.G">L.K.G</option>
+                    <option value="U.K.G">U.K.G</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                </select>
 
             </div>
             <div>
@@ -156,20 +156,21 @@
         </div>
     </div>
     <!--------------------------------------------------------------------------------------------------------------->
-    <div data-role="page" data-theme="a" id="classes">
+
+
+    <div data-role="page" data-theme="a" id="list">
         <!-- Student list page-->
         <div data-role="header">
             <a href="#studentlist" data-role="button" data-icon="back" data-iconpos="notext" data-theme="b"
                 data-iconshadow="false" data-inline="true">back</a>
-            <h1>Class List</h1>
+            <h1>Names of studentDetails</h1>
         </div>
+        <ul data-role="listview" id="listofStudent" data-inset="true" class="ui-btn-inset">
+            <!-- <li id="listofStudent" ><a  id="liststu" data-key="anu" ><h3>anu</h3></a></li> -->
 
-        <!-- <div data-role="main" class="ui-content">
-                <ul data-role="listview" data-inset="true" id="Mainlist">
-                 </ul> 
-        </div> -->
+        </ul>
+
     </div>
-
     <!--------------------------------------------------------------------------------------------------------------->
     <div data-role="page" data-theme="a" id="studentlist">
         <!-- Action page-->
@@ -209,6 +210,8 @@
         </div>
     </div>
 
+
+
     <!--------------------------------------------------------------------------------------------------------------->
     <div data-role="page" data-theme="a" id="teacherHome">
         <!-- Teacher Home page-->
@@ -219,6 +222,7 @@
         </div>
         <div role="main" class="ui-content">
             <h2> Welcome <span id="username_new"></span></h2>
+            <input type="hidden" id="current_session" name="current_session" value="1">
             <div data-role="main" class="ui-content">
                 <div>
                     <ul id="time" data-role="listview" data-inset="true" data-corners="false" class="ui-nodisc-icon ui-alt-icon">
@@ -295,12 +299,12 @@
                     var Sclass = document.getElementById("Class").value;
                     console.log(Sclass);
 
-               
-    var Scontact = document.getElementById("contact").value;
+
+                    var Scontact = document.getElementById("contact").value;
 
                     if (Sname !== "" && Sage !== "" && Sclass !== "" && Scontact !== "") {
                         mydbs.transaction(function (t) {
-                            t.executeSql("INSERT INTO studentDetails  (Sname, Sage, Sclass,Scontact) VALUES (?, ?, ?,?)", [Sname, Sage,Sclass, Scontact]);
+                            t.executeSql("INSERT INTO studentDetails  (Sname, Sage, Sclass,Scontact) VALUES (?, ?, ?,?)", [Sname, Sage, Sclass, Scontact]);
 
                         });
                     }
@@ -346,83 +350,64 @@
                 var uname = results.rows[0].Uname;
                 //console.log(uname);
                 $('#username_new').html(uname);
+
             }
 
             function loadRecords(Sclass) {
                 console.log('Loading events records from database into listview...');
+
                 if (mydbs) {
                     mydbs.transaction(function (txs) {
                         txs.executeSql("SELECT DISTINCT Sclass FROM studentDetails ORDER BY Sclass", [], function (txs, results) {
                             console.log('hello');
+
                             var len = results.rows.length, i;
                             for (i = 0; i < len; i++) {
                                 var listRecord = results.rows.item(i);
                                 console.log(results);
                                 var classlist = '';
-                                classlist = '<li id="" ><a  id="listitem" data-key="' + listRecord.Sclass + '" >';
+                                classlist = '<li id="listofClass"><a  id="listitem"  onclick="fetchstudentList();" data-key="' + listRecord.Sclass + '" >';
                                 classlist += '<h3>' + listRecord.Sclass + '</h3>';
                                 classlist += '</a></li>';
                                 console.log(classlist);
+
                                 $('#listofclass').append(classlist);
                             }
                             $('#listofclass').listview('refresh');
                         });
                     });
-                    var x = document.getElementsByTagName("#listclasses")
-                    console.log(x[1]);
-                    var i;
-                    for (i = 0; i < x.length; i++) {
-                        x[i].style.Color = "red";
-                        console.log("hello2");
-                    }
-                    $('#listclasses ').on('click', function () {
-                        console.log('smvcd')
-
-
-                    })
 
                 }
 
 
             }
 
-            // function fetchstudentList(Sname) {
-            //     console.log('names list');
-            //     if (mydbs) {
-            //         mydbs.transaction(function (txs) {
-            //             txs.executeSql("SELECT Sname FROM studentDetails WHERE Sclass='1'", [], function (txs, results) {
-            //                 console.log('hello');
-            //                 var len = results.rows.length, i;
-            //                 for (i = 0; i < len; i++) {
-            //                     var NamelistRecord = results.rows.item(i);
-            //                     console.log(results);
-            //                     var studname = '';
-            //                     studname = '<li id="listofStudent" ><a  id="liststu" data-key="' + NamelistRecord.Sname + '" >';
-            //                     studname += '<h3>' + NamelistRecord.Sname + '</h3>';
-            //                     studname += '</a></li>';
-            //                     console.log(studname);
-            //                     $('#Mainlist').append( studname);
-            //                 }
-            //                 $('#Mainlist').listview('refresh');
-            //             });
-            //         });
-            //     }
 
+            function fetchstudentList(Sname) {
 
-            // }
+                console.log('names list');
+                window.location.href = 'studentMangement.html#list';
 
-// $('#listvalue').click(function() {
-//     console.log('hello list')
-//     var list   = $('ul[data-role="listview"]');
-//     var nextLi = ((list.children().length) + 1);
-//     alert('Next: '+nextLi);
-//     li = '<li><div data-role="fieldcontain"><label for="textarea'+nextLi+'">Input:</label><textarea id="textarea'+nextLi+'" name="textarea'+nextLi+'"></textarea></div></li>';
-//     list.append(li);
-//     list.listview('refresh');
-
-//     $('#classes').trigger('create');
-// });
-
+                if (mydbs) {
+                    mydbs.transaction(function (txs) {
+                        txs.executeSql("SELECT Sname FROM studentDetails WHERE Sclass='1'", [], function (txs, results) {
+                            console.log('hello');
+                            var len = results.rows.length, i;
+                            for (i = 0; i < len; i++) {
+                                var NamelistRecord = results.rows.item(i);
+                                console.log(results);
+                                var studname = '';
+                                studname = '<li ><a  id="liststudent" data-key="' + NamelistRecord.Sname + '" >';
+                                studname += '<h3>' + NamelistRecord.Sname + '</h3>';
+                                studname += '</a></li>';
+                                console.log(studname);
+                                $('#listofStudent').append(studname);
+                            }
+                            $('#listofStudent').listview('refresh');
+                        });
+                    });
+               }
+            }
         </script>
 </body>
 
