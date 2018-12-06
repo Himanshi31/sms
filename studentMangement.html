@@ -5,27 +5,28 @@
     <title>SMA</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="css/sms.css">
+    <script src="js/sms.js"></script>
     <script src="jQuery/jquery.min.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script src="jQuery/jquery.session.js"></script>
-
+    <script src="jQuery/pdf.js"></script>
+    <script src="jQuery/pdf.worker.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.1.1/pdfobject.min.js"></script>
 </head>
 
 <body>
     <div data-role="page" data-theme="a" id="signin">
         <div data-role="header">
-            <a href="#left-panel" data-role="button" data-icon="home" data-iconpos="notext" data-theme="b"
-                data-iconshadow="false" data-inline="true">home</a>
-            <a href="#right-panel" data-role="button" data-icon="bars" data-iconpos="notext" data-theme="b"
-                data-iconshadow="false" data-inline="true">Bars</a>
+
             <h1>SMA</h1>
         </div>
 
         <!--------------------------------------------------------------------------------------------------------------->
 
         <div role="main" class="ui-content">
+
             <!-- User login page-->
             <h1>
                 <p id="login">Login</p>
@@ -53,6 +54,7 @@
             </div>
         </div>
     </div>
+
 
     <!--------------------------------------------------------------------------------------------------------------->
 
@@ -103,6 +105,7 @@
             </div>
             <div>
                 <a href="#" class="ui-btn" onclick="addData();">submit</a>
+                <a href="#signin" class="ui-btn">login</a>
             </div>
         </div>
     </div>
@@ -139,7 +142,7 @@
                 </label>
                 <select name="select-native-2" id="Class" data-mini="true">
                     <option value="L.K.G">L.K.G</option>
-                    <option value="U.K.G">U.K.G</option>
+                    <option value="U.K.G">0</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                 </select>
@@ -172,6 +175,105 @@
 
         </ul>
 
+    </div>
+
+    <!--------------------------------------------------------------------------------------------------------------->
+    <div data-role="page" data-theme="a" id="timetable">
+        <!-- Student list page-->
+        <div data-role="header">
+            <a href="#teacherHome" data-role="button" data-icon="back" data-iconpos="notext" data-theme="b"
+                data-iconshadow="false" data-inline="true">back</a>
+            <h1>Timetable</h1>
+            <div id="day">
+
+            </div>
+        </div>
+        <div role="main" class="ui-content">
+
+            <!-- <p><a href="#" class="embed-link">Click this link to embed the PDF.</a></p>
+            <div id="results" class="hidden"></div>
+            <div id="pdf"></div> -->
+            <div style="overflow-x:auto;">
+                <table id="mytable">
+                    <caption>
+                        <h1>Time Table</h1>
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>08.00</th>
+                            <th>09.00</th>
+                            <th>10.00</th>
+                            <th colspan="2">Lunch<br>(11.00-12.00)</th>
+                            <th>12.10</th>
+                            <th>13.00</th>
+                            <th>14.00</th>
+                            <th>15.00</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row" class='checkDay' id="monday">Monday</th>
+                            <td>Math</td>
+                            <td>Hindi</td>
+                            <td>English</td>
+                            <td colspan="2"></td>
+                            <td>Physics</td>
+                            <td>chemistry</td>
+                            <td>Library</td>
+                            <td>PD</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class='checkDay' id="tuesday">Tuesday</th>
+                            <td>Hindi</td>
+                            <td>Library</td>
+                            <td>English</td>
+                            <td colspan="2"></td>
+
+                            <td>Physics</td>
+                            <td>chemistry</td>
+                            <td>PD</td>
+                            <td>--</td>
+
+                        </tr>
+                        <tr>
+                            <th scope="row" class='checkDay' id="wednesday">Wednesday</th>
+                            <td>Math</td>
+                            <td>--</td>
+                            <td>Hindi</td>
+                            <td colspan="2"></td>
+                            <td>Physics</td>
+                            <td>chemistry</td>
+                            <td>Library</td>
+                            <td>PD</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class='checkDay' id="thursday">Thursday</th>
+                            <td>Math</td>
+                            <td>Library</td>
+                            <td>English</td>
+                            <td colspan="2"></td>
+                            <td>chemistry</td>
+                            <td>Physics</td>
+
+                            <td>--</td>
+                            <td>PD</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class='checkDay' id="friday">Friday</th>
+                            <td>chemistry</td>
+                            <td>Hindi</td>
+                            <td>Math</td>
+                            <td colspan="2"></td>
+                            <td>Physics</td>
+                            <td>chemistry</td>
+                            <td>Library</td>
+                            <td>PD</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
     <!--------------------------------------------------------------------------------------------------------------->
     <div data-role="page" data-theme="a" id="studentlist">
@@ -211,8 +313,21 @@
             </div>
         </div>
     </div>
-
-
+    <!--------------------------------------------------------------------------------------------------------------->
+    <div data-role="page" data-theme="a" id="today">
+        <div data-role="header">
+            <a href="#teacherHome" data-role="button" data-icon="back" data-iconpos="notext" data-theme="b"
+                data-iconshadow="false" data-inline="true">back</a>
+            <h1>Today's Classes</h1>
+        </div>
+        <div role="main" class="ui-content">
+           
+            <div id="todayDay"></div>
+            <p id="info">
+              
+                </p>
+        </div>
+    </div>
 
     <!--------------------------------------------------------------------------------------------------------------->
     <div data-role="page" data-theme="a" id="teacherHome">
@@ -231,10 +346,11 @@
                         <li data-theme="a"><a href="#studentlist"><img src="user image.png" class="ui-li-icon ui-corner-none">Sudent
                                 List</a>
                         </li>
-                        <li data-theme="a" style="border:none;"><a href="#studentlist"><img src="timetable.png" class="ui-li-icon ui-corner-none">Time
+                        <li data-theme="a" style="border:none;"><a href="#timetable"><img src="timetable.png" class="ui-li-icon ui-corner-none">Time
                                 Table</a>
                         </li>
-                        <li data-theme="a" style="border:none;"><a href="#studentlist"><img src="teacher.png" class="ui-li-icon ui-corner-none">Todays
+                        <li data-theme="a" style="border:none;"><a href="#today" onclick="displayTimetable();"><img src="teacher.png"
+                                    class="ui-li-icon ui-corner-none">Todays
                                 Classes</a>
                         </li>
                     </ul>
@@ -242,193 +358,253 @@
 
             </div>
         </div>
-
         <!--------------------------------------------------------------------------------------------------------------->
-        <script>
+        <div data-role="page" data-theme="a" id="today">
+            <!-- Teacher Home page-->
+            <div data-role="header">
+                <a href="#signin" data-role="button" data-icon="back" data-iconpos="notext" data-theme="b"
+                    data-iconshadow="false" data-inline="true">back</a>
+                <h1>Teacher Home</h1>
+            </div>
+            <div role="main" class="ui-content">
+                <h2> Schedule <span id="todayClass"></span></h2>
 
-            if (window.openDatabase) {
-                var mydb = openDatabase("Teacher", "0.1", "Testing  Database", 2 * 1024 * 1024);
-                var mydbs = openDatabase("Student", "0.1", "Testing  Database", 2 * 1024 * 1024);
-                mydb.transaction(function (t) {
-                    t.executeSql("CREATE TABLE IF NOT EXISTS studentsignup (Uname VARCHAR(30) PRIMARY KEY, Email VARCHAR(50), Pass VARCHAR(50))");
-                });
-                mydbs.transaction(function (tx) {
-                    tx.executeSql("CREATE TABLE IF NOT EXISTS studentDetails (Sname VARCHAR(30) , Sage VARCHAR(20), Sclass VARCHAR(10),Scontact VARCHAR(15))");
-                });
-            } else {
-                alert("WebSQL is not supported by your browser!");
-            }
+            </div>
 
-            function addData() {
-                console.log("user")
+            <!--------------------------------------------------------------------------------------------------------------->
+            <script>
 
-                if (mydb) {
-                    var Uname = document.getElementById("Uname").value;
-                    var Email = document.getElementById("Email").value;
-                    var Pass = document.getElementById("Pass").value;
-                    var Repass = document.getElementById("Repass").value;
-
-                    if (Uname !== "" && Email !== "" && Pass !== "") {
-
-                        mydb.transaction(function (t) {
-                            t.executeSql("INSERT INTO studentsignup  (Uname, Email, Pass) VALUES (?, ?, ?)", [Uname, Email, Pass]);
-
-                        });
-                        alert(`welcome : ${Uname} in the Studentmanagement application  `);
-                    }
-
-                    // if (Pass = "") {
-                    //     document.getElementById('password').innerHTML = "**error"
-                    //     return false;
-                    // }
-                    // if (Pass !== Repass) {
-                    //     document.getElementById('repassword').innerHTML = "**password does't match";
-                    //     return false;
-                    // }
-                    else {
-                        alert("please filled all the entries!");
-                    }
-                }
-                else {
-                    alert("db not found, your browser does not support web sql!");
-                }
-            }
-
-            function addStuData() {
-                alert("hi student");
-                window.location.reload(true);
-                if (mydbs) {
-                    var Sname = document.getElementById("name").value;
-                    var Sage = document.getElementById("age").value;
-                    var Sclass = document.getElementById("Class").value;
-                    console.log(Sclass);
-
-
-                    var Scontact = document.getElementById("contact").value;
-
-                    if (Sname !== "" && Sage !== "" && Sclass !== "" && Scontact !== "") {
-                        mydbs.transaction(function (t) {
-                            t.executeSql("INSERT INTO studentDetails  (Sname, Sage, Sclass,Scontact) VALUES (?, ?, ?,?)", [Sname, Sage, Sclass, Scontact]);
-
-                        });
-                    }
-                    else {
-                        alert("please filled all the entries!");
-                    }
-                }
-                else {
-                    alert("db not found, your browser does not support web sql!");
-                }
-
-            }
-
-            function loginDB() {
-                //  alert("yep yep yep");
-                if (mydb) {
-                    var Uname = document.getElementById("Username").value;
-                    console.log(Uname);
-                    var Pass = document.getElementById("Password").value;
-                    console.log(Pass);
-                }
-                mydb.transaction(function (t) {
-                    t.executeSql("SELECT * FROM studentsignup WHERE Uname='" + Uname + "' AND Pass= '" + Pass + "'", [], LoginSuccess);
-                })
-
-
-            }
-            function LoginSuccess(tx, results) {
-                if (results.rows.length > 0) {
-
-                    var Uname = document.getElementById("Username").value;
+                if (window.openDatabase) {
+                    var mydb = openDatabase("Teacher", "0.1", "Testing  Database", 2 * 1024 * 1024);
+                    var mydbs = openDatabase("Student", "0.1", "Testing  Database", 2 * 1024 * 1024);
                     mydb.transaction(function (t) {
-                        t.executeSql("SELECT * FROM studentsignup WHERE Uname='" + Uname + "'", [], fetchResults);
+                        t.executeSql("CREATE TABLE IF NOT EXISTS studentsignup (Uname VARCHAR(30) PRIMARY KEY, Email VARCHAR(50), Pass VARCHAR(50))");
+                    });
+                    mydbs.transaction(function (tx) {
+                        tx.executeSql("CREATE TABLE IF NOT EXISTS studentDetails (Sname VARCHAR(30) , Sage VARCHAR(20), Sclass VARCHAR(10),Scontact VARCHAR(15))");
+                    });
+                } else {
+                    alert("WebSQL is not supported by your browser!");
+                }
+
+                function addData() {
+                    console.log("user")
+
+                    if (mydb) {
+                        var Uname = document.getElementById("Uname").value;
+                        var Email = document.getElementById("Email").value;
+                        var Pass = document.getElementById("Pass").value;
+                        var Repass = document.getElementById("Repass").value;
+
+                        if (Uname !== "" && Email !== "" && Pass !== "") {
+
+                            mydb.transaction(function (t) {
+                                t.executeSql("INSERT INTO studentsignup  (Uname, Email, Pass) VALUES (?, ?, ?)", [Uname, Email, Pass]);
+
+                            });
+                            alert(`welcome : ${Uname} in the Studentmanagement application  `);
+                        }
+
+                        // if (Pass = "") {
+                        //     document.getElementById('password').innerHTML = "**error"
+                        //     return false;
+                        // }
+                        // if (Pass !== Repass) {
+                        //     document.getElementById('repassword').innerHTML = "**password does't match";
+                        //     return false;
+                        // }
+                        else {
+                            alert("please filled all the entries!");
+                        }
+                    }
+                    else {
+                        alert("db not found, your browser does not support web sql!");
+                    }
+                }
+
+                function addStuData() {
+                    alert("hi student");
+                    window.location.reload(true);
+                    if (mydbs) {
+                        var Sname = document.getElementById("name").value;
+                        var Sage = document.getElementById("age").value;
+                        var Sclass = document.getElementById("Class").value;
+                        console.log(Sclass);
+
+
+                        var Scontact = document.getElementById("contact").value;
+
+                        if (Sname !== "" && Sage !== "" && Sclass !== "" && Scontact !== "") {
+                            mydbs.transaction(function (t) {
+                                t.executeSql("INSERT INTO studentDetails  (Sname, Sage, Sclass,Scontact) VALUES (?, ?, ?,?)", [Sname, Sage, Sclass, Scontact]);
+
+                            });
+                        }
+                        else {
+                            alert("please filled all the entries!");
+                        }
+                    }
+                    else {
+                        alert("db not found, your browser does not support web sql!");
+                    }
+
+                }
+
+                function loginDB() {
+                    //  alert("yep yep yep");
+                    if (mydb) {
+                        var Uname = document.getElementById("Username").value;
                         console.log(Uname);
+                        var Pass = document.getElementById("Password").value;
+                        console.log(Pass);
+                    }
+                    mydb.transaction(function (t) {
+                        t.executeSql("SELECT * FROM studentsignup WHERE Uname='" + Uname + "' AND Pass= '" + Pass + "'", [], LoginSuccess);
                     })
+
+
+                }
+                function LoginSuccess(tx, results) {
+                    if (results.rows.length > 0) {
+
+                        var Uname = document.getElementById("Username").value;
+                        mydb.transaction(function (t) {
+                            t.executeSql("SELECT * FROM studentsignup WHERE Uname='" + Uname + "'", [], fetchResults);
+                            console.log(Uname);
+                        })
+                        window.location.href = 'studentMangement.html#teacherHome';
+                    }
+                    else {
+                        alert("User and Pass incorrect");
+                    }
+                }
+                function fetchResults(tx, results) {
+                    var uname = results.rows[0].Uname;
+                    //console.log(uname);
+                    $('#username_new').html(uname);
+
+                    $.session.set("UserName", uname);
+                    $('#current_session').val(uname);
+
                     window.location.href = 'studentMangement.html#teacherHome';
+
+
                 }
-                else {
-                    alert("User and Pass incorrect");
-                }
-            }
-            function fetchResults(tx, results) {
-                var uname = results.rows[0].Uname;
-                //console.log(uname);
-                $('#username_new').html(uname);
 
-                $.session.set("UserName", uname);
-                $('#current_session').val(uname);
+                $(function () {
+                    var current_user = $.session.get("UserName");
+                    $('#username_new').html(current_user);
+                });
 
-                window.location.href = 'studentMangement.html#teacherHome';
+                function loadRecords() {
+                    console.log('Loading events records from database into listview...');
 
+                    if (mydbs) {
+                        mydbs.transaction(function (txs) {
+                            txs.executeSql("SELECT DISTINCT Sclass FROM studentDetails ORDER BY Sclass", [], function (txs, results) {
+                                console.log('hello');
 
-            }
+                                var len = results.rows.length, i;
+                                for (i = 0; i < len; i++) {
+                                    var listRecord = results.rows.item(i);
+                                    console.log(results);
+                                    var classlist = '';
+                                    classlist = '<li id="listofClass"><a  id="listitem"  onclick="fetchstudentList(event);" data-key="' + listRecord.Sclass + '" >';
+                                    classlist += '<h3>' + listRecord.Sclass + '</h3>';
+                                    classlist += '</a></li>';
+                                    console.log(classlist);
 
-            $(function () {
-                var current_user = $.session.get("UserName");
-                $('#username_new').html(current_user);
-            });
-
-            function loadRecords() {
-                console.log('Loading events records from database into listview...');
-
-                if (mydbs) {
-                    mydbs.transaction(function (txs) {
-                        txs.executeSql("SELECT DISTINCT Sclass FROM studentDetails ORDER BY Sclass", [], function (txs, results) {
-                            console.log('hello');
-
-                            var len = results.rows.length, i;
-                            for (i = 0; i < len; i++) {
-                                var listRecord = results.rows.item(i);
-                                console.log(results);
-                                var classlist = '';
-                                classlist = '<li id="listofClass"><a  id="listitem"  onclick="fetchstudentList(event);" data-key="' + listRecord.Sclass + '" >';
-                                classlist += '<h3>' + listRecord.Sclass + '</h3>';
-                                classlist += '</a></li>';
-                                console.log(classlist);
-
-                                $('#listofclass').append(classlist);
-                            }
-                            $('#listofclass').listview('refresh');
+                                    $('#listofclass').append(classlist);
+                                }
+                                $('#listofclass').listview('refresh');
+                            });
                         });
-                    });
 
+                    }
                 }
 
+                function fetchstudentList(event) {
+                    var selectedId = $(event.currentTarget).attr('data-key');
+                    window.location.href = 'studentMangement.html#list';
 
-            }
-
-
-            function fetchstudentList(event) {
-               var selectedId = $(event.currentTarget).attr('data-key');
-                window.location.href = 'studentMangement.html#list';
-
-                if (mydbs) {
-                    mydbs.transaction(function (txs) {
-                        var ttt = "SELECT Sname FROM studentDetails WHERE Sclass="+selectedId;
-                        console.log('ttt', ttt);
-                        txs.executeSql(ttt, [], function (txs, results) {
-                            console.log('hello', results);
-                            $("#listofStudent").empty();
-                            var len = results.rows.length, i;
-                            for (i = 0; i < len; i++) {
-                                var NamelistRecord = results.rows.item(i);
-                                console.log(results);
-                                var studname = '';
-                                studname = '<li ><a  id="liststudent" data-key="' + NamelistRecord.Sname + '" >';
-                                studname += '<h3>' + NamelistRecord.Sname + '</h3>';
-                                studname += '</a></li>';
-                                console.log(studname);
-                                
-                                $('#listofStudent').append(studname);
-                            }
-                            $('#listofStudent').listview('refresh');
+                    if (mydbs) {
+                        mydbs.transaction(function (txs) {
+                            var ttt = "SELECT Sname FROM studentDetails WHERE Sclass=" + selectedId;
+                            console.log('ttt', ttt);
+                            txs.executeSql(ttt, [], function (txs, results) {
+                                console.log('hello', results);
+                                $("#listofStudent").empty();
+                                var len = results.rows.length, i;
+                                for (i = 0; i < len; i++) {
+                                    var NamelistRecord = results.rows.item(i);
+                                    console.log(results);
+                                    var studname = '';
+                                    studname = '<li ><a  id="liststudent" data-key="' + NamelistRecord.Sname + '" >';
+                                    studname += '<h3>' + NamelistRecord.Sname + '</h3>';
+                                    studname += '</a></li>';
+                                    console.log(studname);
+                                    $('#listofStudent').append(studname);
+                                }
+                                $('#listofStudent').listview('refresh');
+                            });
+                        });
+                    }
+                }
+                function displayTimetable() {
+                  
+                        var currentDate = new Date();
+                        var d = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                        var dd = d[currentDate.getDay()] + '/' + currentDate.getDate() + '/' + currentDate.getFullYear();
+                        var display = document.getElementById('todayDay').innerHTML = '<h2>' + dd + '</h2>';
+                        console.log(dd);
+                        console.log("hello ths ")
+                        document.getElementById('info').innerHTML = "";
+                        var table = document.getElementById("mytable");
+                        // console.log(table);
+                        for (var i = 0; i < table.rows.length; i++) {
+                        var obj = table.rows.item(i).cells;
+                        // var date=new Date()
+                        // console.log(date)
+                        
+                        // console.log(obj,"ttt");
+                        for (var j = 0; j < obj.length; j++) {
                            
-                        });
-                    });
-                }
+                            // console.log(obj.item(j));
+                                //   if (dd == date) {
+                              
 
-            }
-        </script>
+                                info.innerHTML = info.innerHTML + ' ' + obj.item(j).innerHTML;
+                            // }
+                            info.innerHTML = info.innerHTML + '<br />'; 
+                        }
+                        
+                    }
+                }
+// document.querySelector(".embed-link").addEventListener("click", function (e) {
+
+//     e.preventDefault();
+
+//     this.setAttribute("class", "hidden");
+
+//     var options = {
+//         pdfOpenParams: {
+//             pagemode: "thumbs",
+//             navpanes: 0,
+//             toolbar: 0,
+//             statusbar: 0,
+//             view: "FitV"
+//         }
+//     };
+
+//     var myPDF = PDFObject.embed("pdf/dummy.pdf", "#pdf", options);
+
+//     var el = document.querySelector("#results");
+//     el.setAttribute("class", (myPDF) ? "success" : "fail");
+//     el.innerHTML = (myPDF) ? "PDF open  successfully !" : "Uh-oh, the embed didn't work.";
+
+// });
+
+            </script>
 </body>
 
 </html>
