@@ -5,7 +5,7 @@
     <title>SMA</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="css/sms.css">
-    <script src="js/sms.js"></script>
+    <!-- <script src="js/sms.js"></script> -->
     <script src="jQuery/jquery.min.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -31,11 +31,9 @@
             <h1>
                 <p id="login">Login</p>
             </h1>
-
             <h4>
                 <img src="user image.png" width="25px" height="20px" alt="Failed" />
             </h4>
-
             <div>
                 <label>
                     <h3>Username</h3>
@@ -46,7 +44,7 @@
                 <label>
                     <h3>Password</h3>
                 </label>
-                <input type="text" id="Password">
+                <input type="password" id="Password" >
             </div>
             <div>
                 <a href="#" class="ui-btn" onclick="loginDB();">login</a>
@@ -142,7 +140,7 @@
                 </label>
                 <select name="select-native-2" id="Class" data-mini="true">
                     <option value="L.K.G">L.K.G</option>
-                    <option value="U.K.G">0</option>
+                    <option value="0">0</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                 </select>
@@ -204,7 +202,7 @@
                             <th>08.00</th>
                             <th>09.00</th>
                             <th>10.00</th>
-                            <th colspan="2">Lunch<br>(11.00-12.00)</th>
+                            <th>Lunch<br>(11.00-12.00)</th>
                             <th>12.10</th>
                             <th>13.00</th>
                             <th>14.00</th>
@@ -212,59 +210,58 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row" class='checkDay' id="monday">Monday</th>
+                        <tr id="mon">
+                            <th scope="row" class='checkDay'>Monday</th>
                             <td>Math</td>
                             <td>Hindi</td>
                             <td>English</td>
-                            <td colspan="2"></td>
+                            <td></td>
                             <td>Physics</td>
                             <td>chemistry</td>
                             <td>Library</td>
                             <td>PD</td>
                         </tr>
-                        <tr>
-                            <th scope="row" class='checkDay' id="tuesday">Tuesday</th>
+                        <tr id="tue">
+                            <th scope="row" class='checkDay'>Tuesday</th>
                             <td>Hindi</td>
                             <td>Library</td>
                             <td>English</td>
-                            <td colspan="2"></td>
-
+                            <td></td>
                             <td>Physics</td>
                             <td>chemistry</td>
                             <td>PD</td>
                             <td>--</td>
 
                         </tr>
-                        <tr>
-                            <th scope="row" class='checkDay' id="wednesday">Wednesday</th>
+                        <tr id="wed">
+                            <th scope="row" class='checkDay'>Wednesday</th>
                             <td>Math</td>
                             <td>--</td>
                             <td>Hindi</td>
-                            <td colspan="2"></td>
+                            <td></td>
                             <td>Physics</td>
                             <td>chemistry</td>
                             <td>Library</td>
                             <td>PD</td>
+
                         </tr>
-                        <tr>
-                            <th scope="row" class='checkDay' id="thursday">Thursday</th>
+                        <tr id="thu">
+                            <th scope="row" class='checkDay'>Thursday</th>
                             <td>Math</td>
                             <td>Library</td>
                             <td>English</td>
-                            <td colspan="2"></td>
+                            <td></td>
                             <td>chemistry</td>
                             <td>Physics</td>
-
                             <td>--</td>
                             <td>PD</td>
                         </tr>
-                        <tr>
-                            <th scope="row" class='checkDay' id="friday">Friday</th>
+                        <tr id="fri">
+                            <th scope="row" class='checkDay'>Friday</th>
                             <td>chemistry</td>
                             <td>Hindi</td>
                             <td>Math</td>
-                            <td colspan="2"></td>
+                            <td></td>
                             <td>Physics</td>
                             <td>chemistry</td>
                             <td>Library</td>
@@ -283,26 +280,34 @@
                 data-iconshadow="false" data-inline="true">back</a>
             <h1>Teacher Home</h1>
         </div>
+       
         <div role="main" class="ui-content">
+                <div>
+                        <h1 hidden>hello</h1>
+                    </div>
+                    <br>
+                    <br>
             <div>
-                <ul id="time" data-role="listview" data-inset="true" data-corners="false" data-icon="false" class="ui-nodisc-icon ui-alt-icon">
-                    <li data-theme="a" class="ui-btn ui-btn-icon-left "><a href="#addStudent"><img src="user image.png"
-                                class="ui-li-icon ui-corner-none">Add
+                <ul id="time1" data-role="listview" data-inset="true" data-corners="false" data-icon="true" class="ui-nodisc-icon ">
+                    <li id="addStu" data-theme="a" ><a href="#addStudent"><img src="plus.png"
+                                class="ui-li-icon ui-corner-none ">Add
                             Student</a>
                     </li>
+                    
+                    <li id="class" data-theme="a" class="ui-btn ui-btn-icon-left "><a href="#" onclick="loadRecords();"><img src="list.png"
+                        class="ui-li-icon ui-corner-none ">Classes</a>
+                   </li>
                 </ul>
 
             </div>
             <div>
-                <ul id="time" data-role="listview" data-inset="true" data-corners="false" data-icon="false" class="ui-nodisc-icon ui-alt-icon">
+                <!-- <ul id="time" data-role="listview" data-inset="true" data-corners="false" data-icon="false" class="ui-nodisc-icon ui-alt-icon">
                     <li data-theme="a" class="ui-btn ui-btn-icon-left "><a href="#" onclick="loadRecords();"><img src="list.png"
                                 class="ui-li-icon ui-corner-none">Classes</a>
                     </li>
-                    <li data-theme="a" class="ui-btn ui-btn-icon-left "><a href="#" onclick="fetchstudentList();"><img
-                                src="list.png" class="ui-li-icon ui-corner-none">Names</a>
-                    </li>
+                   
 
-                </ul>
+                </ul> -->
                 <ul data-role="listview" id="Mainlist" data-inset="true" class="ui-btn-inset">
                     <!-- <li id="listofStudent" ><a  id="liststu" data-key="anu" ><h3>anu</h3></a></li> -->
 
@@ -321,11 +326,10 @@
             <h1>Today's Classes</h1>
         </div>
         <div role="main" class="ui-content">
-           
+            <h2 id="date"></h2>
+            <!-- <div id="time"></div> -->
             <div id="todayDay"></div>
-            <p id="info">
-              
-                </p>
+
         </div>
     </div>
 
@@ -343,13 +347,13 @@
             <div data-role="main" class="ui-content">
                 <div>
                     <ul id="time" data-role="listview" data-inset="true" data-corners="false" class="ui-nodisc-icon ui-alt-icon">
-                        <li data-theme="a"><a href="#studentlist"><img src="user image.png" class="ui-li-icon ui-corner-none">Sudent
+                        <li id="stulist"data-theme="a" ><a href="#studentlist"><img src="user image.png" class="ui-li-icon ui-corner-none">Sudent
                                 List</a>
                         </li>
-                        <li data-theme="a" style="border:none;"><a href="#timetable"><img src="timetable.png" class="ui-li-icon ui-corner-none">Time
+                        <li id="timeTable" data-theme="a" ><a href="#timetable"><img src="timetable.png" class="ui-li-icon ui-corner-none">Time
                                 Table</a>
                         </li>
-                        <li data-theme="a" style="border:none;"><a href="#today" onclick="displayTimetable();"><img src="teacher.png"
+                        <li id="todayClasses" data-theme="a" ><a href="#today" onclick="displayTimetable();"><img src="teacher.png"
                                     class="ui-li-icon ui-corner-none">Todays
                                 Classes</a>
                         </li>
@@ -430,14 +434,10 @@
                         var Sage = document.getElementById("age").value;
                         var Sclass = document.getElementById("Class").value;
                         console.log(Sclass);
-
-
                         var Scontact = document.getElementById("contact").value;
-
                         if (Sname !== "" && Sage !== "" && Sclass !== "" && Scontact !== "") {
                             mydbs.transaction(function (t) {
                                 t.executeSql("INSERT INTO studentDetails  (Sname, Sage, Sclass,Scontact) VALUES (?, ?, ?,?)", [Sname, Sage, Sclass, Scontact]);
-
                             });
                         }
                         else {
@@ -461,8 +461,6 @@
                     mydb.transaction(function (t) {
                         t.executeSql("SELECT * FROM studentsignup WHERE Uname='" + Uname + "' AND Pass= '" + Pass + "'", [], LoginSuccess);
                     })
-
-
                 }
                 function LoginSuccess(tx, results) {
                     if (results.rows.length > 0) {
@@ -498,12 +496,10 @@
 
                 function loadRecords() {
                     console.log('Loading events records from database into listview...');
-
                     if (mydbs) {
                         mydbs.transaction(function (txs) {
                             txs.executeSql("SELECT DISTINCT Sclass FROM studentDetails ORDER BY Sclass", [], function (txs, results) {
                                 console.log('hello');
-
                                 var len = results.rows.length, i;
                                 for (i = 0; i < len; i++) {
                                     var listRecord = results.rows.item(i);
@@ -513,20 +509,17 @@
                                     classlist += '<h3>' + listRecord.Sclass + '</h3>';
                                     classlist += '</a></li>';
                                     console.log(classlist);
-
                                     $('#listofclass').append(classlist);
                                 }
                                 $('#listofclass').listview('refresh');
                             });
                         });
-
                     }
                 }
 
                 function fetchstudentList(event) {
                     var selectedId = $(event.currentTarget).attr('data-key');
                     window.location.href = 'studentMangement.html#list';
-
                     if (mydbs) {
                         mydbs.transaction(function (txs) {
                             var ttt = "SELECT Sname FROM studentDetails WHERE Sclass=" + selectedId;
@@ -550,35 +543,62 @@
                         });
                     }
                 }
+
                 function displayTimetable() {
-                  
-                        var currentDate = new Date();
-                        var d = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-                        var dd = d[currentDate.getDay()] + '/' + currentDate.getDate() + '/' + currentDate.getFullYear();
-                        var display = document.getElementById('todayDay').innerHTML = '<h2>' + dd + '</h2>';
-                        console.log(dd);
-                        console.log("hello ths ")
-                        document.getElementById('info').innerHTML = "";
-                        var table = document.getElementById("mytable");
-                        // console.log(table);
-                        for (var i = 0; i < table.rows.length; i++) {
+                    var currentDate = new Date();
+                    var d = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                    var dd = d[currentDate.getDay()] + '/' + currentDate.getDate() + '/' + currentDate.getFullYear();
+
+                    //var display = document.getElementById('todayDay').innerHTML = '<h2>' + dd + '</h2>';
+                    console.log(dd);
+                    // console.log(cur_time);
+                    var day = (dd.toLocaleLowerCase()).substr(0, 3);
+                    //var cur_time=new Date().toLocaleTimeString();
+                    console.log("Day = " + day);
+                    //console.log("Time= "+cur_time);
+
+                    //document.getElementById('info').innerHTML = "";
+                    var table = document.getElementById("mytable");
+                    // console.log(table);
+                    var tb = "<table border=1>";
+                    tb += "<th>Time</th>" + "<th>Classes</th>"
+                    for (var i = 0; i < table.rows.length; i++) {
                         var obj = table.rows.item(i).cells;
+                        console.log(obj)
+                        var obj1 = table.rows.item(i).id;
+                        console.log(obj1);
                         // var date=new Date()
                         // console.log(date)
-                        
-                        // console.log(obj,"ttt");
-                        for (var j = 0; j < obj.length; j++) {
-                           
-                            // console.log(obj.item(j));
-                                //   if (dd == date) {
-                              
 
-                                info.innerHTML = info.innerHTML + ' ' + obj.item(j).innerHTML;
-                            // }
-                            info.innerHTML = info.innerHTML + '<br />'; 
+                        // console.log(obj,"ttt");
+                        if (obj1 === day) {
+                            for (var j = 0; j < obj.length; j++) {
+                                var time = table.rows.item(0).cells;
+                                // console.log(obj.item(j));
+                                //   if (dd == date) {
+
+                                if (j >= 1) {
+                                    if (j != 4) {
+
+                                        tb += "<tr><th>" + time.item(j).innerHTML + "</th><td>" + obj.item(j).innerHTML + "</td></tr>";
+                                    }
+                                    else {
+                                        tb += "<tr><th colspan=2>" + time.item(j).innerHTML + "</th></tr>";
+                                    }
+                                }
+                                // info.innerHTML = info.innerHTML + ' ' + obj.item(j).innerHTML;
+                                // }
+                                // info.innerHTML = info.innerHTML + '<br />'; 
+                            }
                         }
-                        
+
                     }
+                    tb += "</table>";
+                    console.log(tb);
+                    var x = document.getElementById("todayDay");
+                    x.innerHTML = tb;
+                    document.getElementById("date").prepend(dd);
+
                 }
 // document.querySelector(".embed-link").addEventListener("click", function (e) {
 

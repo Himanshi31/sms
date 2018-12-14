@@ -1,30 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>PDFObject Example: Invoking conditional JavaScript upon successful embed (onclick)</title>
-<!-- site analytics, unrelated to any example code presented on this page -->
-<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-1394306-6"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PDFObject Example: Invoking conditional JavaScript upon successful embed (onclick)</title>
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <!-- site analytics, unrelated to any example code presented on this page -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-1394306-6"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-google-analytics/1.1.9/angular-google-analytics.js"></script>/site analytics -->
 
-<!--
+    <!--
 	This example created for PDFObject.com by Philip Hutchison (www.pipwerks.com)
 	Copyright 2016-2018, MIT-style license http://pipwerks.mit-license.org/
 	Documentation available at http://pdfobject.com
 	Source code available at https://github.com/pipwerks/PDFObject
 -->
 
-<!-- CSS for basic page styling, not related to example -->
-<!-- <link href="../css/examples.css" rel="stylesheet" /> -->
+    <!-- CSS for basic page styling, not related to example -->
+    <!-- <link href="../css/examples.css" rel="stylesheet" /> -->
 
-<style>
-/*
-PDFObject appends the classname "pdfobject-container" to the target element.
-This enables you to style the element differently depending on whether the embed was successful.
-In this example, a successful embed will result in a large box.
-A failed embed will not have dimensions specified, so you don't see an oddly large empty box.
-*/
+    <!-- <style>
+
 
 .pdfobject-container {
 	width: 100%;
@@ -37,48 +36,94 @@ A failed embed will not have dimensions specified, so you don't see an oddly lar
 .hidden { display: none; }
 .success { color: #4F8A10; background-color: #DFF2BF; }
 .fail { color: #D8000C; background-color: #FFBABA; }
-</style>
+</style> -->
 
 </head>
 
 <body>
-<h1>PDFObject Example: Invoking conditional JavaScript upon successful embed (onclick)</h1>
+    <!-- <h1>PDFObject Example: Invoking conditional JavaScript upon successful embed (onclick)</h1>
 
 <p><a href="#" class="embed-link">Click this link to embed the PDF.</a></p>
 <div id="results" class="hidden"></div>
-<div id="pdf"></div>
+<div id="pdf"></div> -->
 
-<!-- <div class="pdfobject-com"><a href="http://pdfobject.com">PDFObject.com</a></div> -->
+    <!-- <div class="pdfobject-com"><a href="http://pdfobject.com">PDFObject.com</a></div> -->
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.1.1/pdfobject.min.js"></script>
-<script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.1.1/pdfobject.min.js"></script>
+    <div data-role="page" data-theme="a" id="signin">
+        <div data-role="header">
 
-document.querySelector(".embed-link").addEventListener("click", function (e){
+            <h1>SMA</h1>
+        </div>
+        <div role="main" class="ui-content">
+            <div>
+             
+                <input type="text" required autofocus id="name" placeholder="username">
+            </div>
+            <div>
+              
+                <input type="text"required autofocus id="pass"placeholder="pass">
+            </div>
+            <div>
+                <a href="#" class="ui-btn" onclick="login();">login</a>
+                <!-- <a href="#signPage" class="ui-btn">signup</a> -->
+            </div>
+        </div>
+    </div>
+    <script>
 
-	e.preventDefault();
+        // document.querySelector(".embed-link").addEventListener("click", function (e){
 
-	this.setAttribute("class", "hidden");
+        // 	e.preventDefault();
 
-	var options = {
-		pdfOpenParams: {
-			pagemode: "thumbs",
-			navpanes: 0,
-			toolbar: 0,
-			statusbar: 0,
-			view: "FitV"
-		}
-	};
+        // 	this.setAttribute("class", "hidden");
 
-	var myPDF = PDFObject.embed("pdf/dummy.pdf", "#pdf", options);
+        // 	var options = {
+        // 		pdfOpenParams: {
+        // 			pagemode: "thumbs",
+        // 			navpanes: 0,
+        // 			toolbar: 0,
+        // 			statusbar: 0,
+        // 			view: "FitV"
+        // 		}
+        // 	};
 
-	var el = document.querySelector("#results");
-	el.setAttribute("class", (myPDF) ? "success" : "fail");
-	el.innerHTML = (myPDF) ? "PDFObject successfully added an &lt;embed> element to the page!" : "Uh-oh, the embed didn't work.";
+        // 	var myPDF = PDFObject.embed("pdf/dummy.pdf", "#pdf", options);
 
-});
-</script>
+        // 	var el = document.querySelector("#results");
+        // 	el.setAttribute("class", (myPDF) ? "success" : "fail");
+        // 	el.innerHTML = (myPDF) ? "PDFObject successfully added an &lt;embed> element to the page!" : "Uh-oh, the embed didn't work.";
+
+        // });
+
+        if (window.openDatabase) {
+            var mydb = openDatabase("demo", '0.1', "hello", 2 * 1024 * 1024);
+            mydb.transaction(function (t) {
+                t.executeSql('CREATE TABLE IF NOT EXISTS LOGIN(NAME VARCHAR(10),PASS VARCHAR(10))');
+            });
+
+
+        }
+        else {
+            alert("WebSQL is not supported by your browser!");
+        }
+        function login() {
+            if (mydb) {
+                var n = document.getElementById('name').value;
+                var p = document.getElementById('pass').value;
+                if (n !== '' && p !== '') {
+                    mydb.transaction(function (t) {
+                        t.executeSql('INSERT INTO LOGIN (NAME,PASS) VALUES(?,?)', [n, p]);
+                    });
+                    console.log(n);
+                    console.log(p);
+                }
+            }
+        }
+    </script>
 
 </body>
+
 </html>
 
 

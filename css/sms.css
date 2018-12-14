@@ -1,3 +1,4 @@
+
 #repassword{
     color: red;
 }
@@ -20,3 +21,27 @@ table {  border-collapse: collapse;
     .maintable{
         text-align: center;
     }
+   #time{
+       padding: 5%;
+       background-color: darkturquoise;
+   }
+   #time1{
+    padding: 5%;
+    margin: 4%;
+    background-color: darkturquoise;
+}
+   #stulist{
+       margin: 2%
+   }
+   #timeTable{
+    margin: 2%
+}
+#todayClasses{
+    margin: 2%
+}
+#addStu{
+    margin: 2%;
+}
+#class{
+    margin: 2%
+}
