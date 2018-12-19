@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Conference Room Booking App - Welcome</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  
+    <script src="jQuery/jquery.min.js"></script>
+    <script src=""></script>
+</head>
+<body>
+    <div data-role="page">
+        <div data-role="header" data-theme="c">
+            <h1>Book It</h1>
+        </div><!-- /header -->
+        <div role="main" class="ui-content">
+            <h2 >Welcome!</h2>
+      
+            <a href="#page1" class="ui-btn ui-btn-b ">Sign In</a>
+          
+            <a href="#page2" class="ui-btn ui-btn-b ">Sign Up</a>
+            <p></p>
+        </div><!-- /content -->
+    </div><!-- /page -->
+    <div data-role="page" id="page1">
+        <div data-role="header" data-theme="c">
+            <!-- <h1>Book It</h1> -->
+        </div><!-- /header -->
+        <div role="main" class="ui-content">
+            <h3>Sign In</h3>
+            <label for="txt-email">Email Address</label>
+            <input type="text" name="txt-email" id="txt-email" value="">
+            <label for="txt-password">Password</label>
+            <input type="password" name="txt-password" id="txt-password" value="">
+            <div>
+                <a href="#" onclick=" signIn();" class="ui-btn">submit</a>
+            </div>
+        </div><!-- /content -->
+    </div><!-- /page -->
+    <div data-role="page" id="page2">
+        <div data-role="header" data-theme="c">
+            <!-- <h1>Book It</h1> -->
+        </div><!-- /header -->
+        <div role="main" class="ui-content">
+            <h3>Sign Up</h3>
+            
+            <input type="text" name="txt-first-name" id="name" value="" placeholder="First Name">
+           
+            <input type="text" name="txt-last-name" id="lname" value="" placeholder="Last Name">
+        
+            <input type="text" name="txt-email" id="email" value="" placeholder="email">
+         
+            <input type="password" name="txt-password" id="password" value="" placeholder="Password">
+           
+            <input type="password" name="txt-password-confirm" id="password-confirm" value="" placeholder="Confirm Password">
+            <div>
+                <a href="#" onclick=" signUp();" class="ui-btn">submit</a>
+            </div>
+            
+        </div><!-- /content -->
+    </div>
+</body>
+<script>
+    if(window.openDatabase){
+        var db=openDatabase("demo","0.1","test","2*1024");
+        db.transaction(function(t){
+            t.executeSql("CREATE TABLE IF NOT EXISTS signup (Uname VARCHAR(30),Lname VARCHAR(30), Email VARCHAR(50), Pass VARCHAR(50))")
+        })
+    }
+    function signUp(){
+        console.log("hello")
+        if(db){
+            var name=document.getElementById("name").value;
+            console.log(name)
+            var lname=document.getElementById("lname").value;
+            var email=document.getElementById("email").value;
+            var pass=document.getElementById("password").value;
+        }
+        if (name !== "" && lname !=="" && email !== "" && pass !== "") {
+
+db.transaction(function (t) {
+    t.executeSql("INSERT INTO signup  (Uname,Lname, Email,Pass) VALUES (?, ?, ?,?)", [name,lname,email, pass]);
+
+});
+
+}
+
+else {
+alert("please filled all the entries!");
+}
+    }
+</script>
+</html>
